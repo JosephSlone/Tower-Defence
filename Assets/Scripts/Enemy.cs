@@ -17,7 +17,13 @@ public class Enemy : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         currentHits = MaxHits;
-	}
+
+    }
+
+    private void Update()
+    {
+        
+    }
 
     private void OnParticleCollision(GameObject other)
     {
@@ -30,6 +36,7 @@ public class Enemy : MonoBehaviour {
         currentHits -= 1;
         healthBar.fillAmount = currentHits / MaxHits;
         print("I was hit!");
+
         if (currentHits <= 0)
         {
             DestroyMySelf();
