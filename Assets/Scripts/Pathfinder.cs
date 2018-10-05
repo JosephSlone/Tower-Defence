@@ -38,17 +38,23 @@ public class Pathfinder : MonoBehaviour {
 
     private void CreatePath()
     {
-        path.Add(endWaypoint);
-
-        Waypoint previous = endWaypoint;
+        SetAsPath(endWaypoint);
+        Waypoint previous = endWaypoint;        
 
         while (previous != startWaypoint)
         {
             previous = previous.exploredFrom;
-            path.Add(previous);
+            SetAsPath(previous);
         }
 
+        SetAsPath(startWaypoint);
         path.Reverse();
+    }
+
+    private void SetAsPath(Waypoint waypoint)
+    {
+        path.Add(waypoint);
+        waypoint.isPlaceable = false;
     }
 
     private void BreadthFirstSearch()
