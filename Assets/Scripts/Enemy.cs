@@ -46,12 +46,12 @@ public class Enemy : MonoBehaviour {
     private void ShowHitEffect()
     {
         hitExplosion.SetActive(true);
-        StartCoroutine(HideHitEffect());
+        //StartCoroutine(HideHitEffect());
     }
 
     IEnumerator HideHitEffect()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1f);
         hitExplosion.SetActive(false);
 
     }

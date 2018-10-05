@@ -21,7 +21,7 @@ public class EnemyMovement : MonoBehaviour {
 
             transform.position = new Vector3(
                 waypoint.transform.position.x,
-                7f,
+                12f,
                 waypoint.transform.position.z);
 
             // transform.position = waypoint.transform.position;
