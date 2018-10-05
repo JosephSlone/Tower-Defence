@@ -190,7 +190,6 @@ GameObject:
   - component: {fileID: 33692292115347922}
   - component: {fileID: 23341921252869336}
   - component: {fileID: 65345594843432150}
-  - component: {fileID: 114737882569455182}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -241,9 +240,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4612822669184092}
   - component: {fileID: 114902252537637856}
+  - component: {fileID: 114558857443730734}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,7 +501,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1513363302904188}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_Children:
   - {fileID: 4855914497888492}
@@ -627,6 +627,23 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114558857443730734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1544255231467508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ac74041e166fef4a924112f0df88dfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxHits: 20
+  hitExplosion: {fileID: 1828176872806910, guid: 64891a0eb28db934898420d80ca07cb3,
+    type: 2}
+  deathExplosion: {fileID: 1121192042590650, guid: e1b08032bec16ba4eb1ae23cbd572664,
+    type: 2}
+  healthBar: {fileID: 114406781543987256}
 --- !u!114 &114568195152617118
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -654,21 +671,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114737882569455182
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1513363302904188}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ac74041e166fef4a924112f0df88dfa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxHits: 35
-  hitExplosion: {fileID: 1495270846312074}
-  deathExplosion: {fileID: 1528727197008852}
-  healthBar: {fileID: 114406781543987256}
 --- !u!114 &114821790265182182
 MonoBehaviour:
   m_ObjectHideFlags: 1
