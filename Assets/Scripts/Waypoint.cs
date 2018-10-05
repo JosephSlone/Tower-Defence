@@ -34,7 +34,6 @@ public class Waypoint : MonoBehaviour {
         {
             if(isPlaceable)
             {
-                print("Mouse Is Over: " + gameObject.name);
                 Vector3 spawnPosition = gameObject.transform.position;
                 spawnPosition.y = 10f;
 
