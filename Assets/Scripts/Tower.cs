@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Tower : MonoBehaviour {
 
@@ -10,21 +11,32 @@ public class Tower : MonoBehaviour {
 
     [SerializeField] Transform objectToPan;    
     [SerializeField] Transform neutralTarget;
-    [SerializeField] float attackRange = 75f;
+    [SerializeField] float attackRange = 50f;
     [SerializeField] GameObject laser;
+    [SerializeField] float coolDownTime = 5f;
+    [SerializeField] float timeToOverheat = 5f;
+    [SerializeField] Image healthBar;
 
 
     // State of each tower
     Transform targetEnemy;
+    AudioSource audioSource;
+
+    float fireTime = 0f;
+    float coolDown = 0f;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        coolDown = coolDownTime;
+    }
 
     // Update is called once per frame
     void Update () {
-
         SetTargetEnemy();
-
         LookAtEnemy();
-		
-	}
+        FireAtEnemy();
+    }
 
     private void SetTargetEnemy()
     {
@@ -63,27 +75,62 @@ public class Tower : MonoBehaviour {
         {
             objectToPan.LookAt(neutralTarget);
             laser.SetActive(false);
-            return;
         }
-
-        FireAtEnemy();
-
+        else
+        {
+            objectToPan.LookAt(targetEnemy);
+        }
     }
 
     private void FireAtEnemy()
     {
         float distance = Vector3.Distance(targetEnemy.transform.position, gameObject.transform.position);
 
-        if (distance <= attackRange)
-        {
-            objectToPan.LookAt(targetEnemy);
-            laser.SetActive(true);
+        if (fireTime < timeToOverheat) {
+
+            healthBar.fillAmount = fireTime/timeToOverheat; 
+
+            if (distance <= attackRange)
+            {
+                laser.SetActive(true);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.loop = true;
+                    audioSource.Play();
+                }
+                fireTime += Time.deltaTime;
+            }
+            else
+            {
+                laser.SetActive(false);
+                if (!audioSource.isPlaying)
+                {
+                    audioSource.loop = false;
+                    audioSource.Stop();
+                }
+                // fireTime -= Time.deltaTime;
+            }
         }
         else
         {
-            objectToPan.LookAt(neutralTarget);
             laser.SetActive(false);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.loop = false;
+                audioSource.Stop();
+            }
+
+            coolDown -= Time.deltaTime;
+            if (coolDown <= 0)
+            {
+                fireTime = 0;
+                coolDown = coolDownTime;
+            }
+
+            healthBar.fillAmount = coolDown / coolDownTime;
         }
+
+        
     }
 
 

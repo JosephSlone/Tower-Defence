@@ -13,10 +13,12 @@ public class Enemy : MonoBehaviour {
     [SerializeField] Image healthBar;
 
     float currentHits;
+    AudioSource audioSource;
 
 	// Use this for initialization
 	void Start () {
         currentHits = MaxHits;
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -57,8 +59,11 @@ public class Enemy : MonoBehaviour {
     void DestroyMySelf()
     {
         deathExplosion.SetActive(true);
+        if(!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }        
         StartCoroutine(WaitForDeath());
-
     }
 
     IEnumerator WaitForDeath()

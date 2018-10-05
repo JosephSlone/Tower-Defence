@@ -14,9 +14,5 @@ public class NeutralBlock : MonoBehaviour {
 		
 	}
 
-    private void OnMouseOver()
-    {
-        print("Mouse Is Over: "+ gameObject.name);
-
-    }
+  
 }

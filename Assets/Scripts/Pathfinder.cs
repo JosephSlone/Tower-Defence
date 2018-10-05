@@ -28,7 +28,6 @@ public class Pathfinder : MonoBehaviour {
         if (path.Count == 0)
         {
             LoadBocks();
-            ColorStartAndEnd();
             BreadthFirstSearch();
             CreatePath();
         }
@@ -103,13 +102,6 @@ public class Pathfinder : MonoBehaviour {
             queue.Enqueue(neighbor);
             neighbor.exploredFrom = searchCenter;
         }
-    }
-
-    private void ColorStartAndEnd()
-    {
-         // consider moving out?
-        startWaypoint.SetTopColor(Color.green);
-        endWaypoint.SetTopColor(Color.red);
     }
 
     private void LoadBocks()
