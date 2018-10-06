@@ -25,10 +25,19 @@ public class Tower : MonoBehaviour {
     float fireTime = 0f;
     float coolDown = 0f;
 
+    public Vector3 currentPos;
+
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         coolDown = coolDownTime;
+        int gridSize = 10;
+
+        currentPos = transform.position;
+
+        transform.position = new Vector3(Mathf.Round(currentPos.x / gridSize) * gridSize,
+                                      Mathf.Round(currentPos.y ),
+                                      Mathf.Round(currentPos.z / gridSize) * gridSize);
     }
 
     // Update is called once per frame

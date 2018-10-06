@@ -38,8 +38,24 @@ public class EnemyMovement : MonoBehaviour {
 
     private void Update()
     {
+        moveSmoothly();
+        Vector3 enemy = transform.position;
+        Vector3 end = path[path.Count - 1].transform.position;
+        enemy.y = 0;
+        end.y = 0;
+
+        float distanceFromEnd = Vector3.Distance(end, enemy);
+
+        if (distanceFromEnd < 1f ) {
+            Destroy(gameObject, 0.25f);
+        }
+
+    }
+
+    private void moveSmoothly()
+    {
         float step = speed * Time.deltaTime;
-        
+
         Vector3 target = new Vector3(
                 wayPoint.transform.position.x,
                 12f,
@@ -51,12 +67,11 @@ public class EnemyMovement : MonoBehaviour {
         if (distance <= 0.1)
         {
             // Jump to next position in list
-            if (wayPointPosition  < path.Count-1)
+            if (wayPointPosition < path.Count - 1)
             {
                 wayPointPosition += 1;
                 wayPoint = path[wayPointPosition];
             }
         }
-
     }
 }

@@ -43,8 +43,8 @@ public class Pathfinder : MonoBehaviour {
 
         while (previous != startWaypoint)
         {
-            previous = previous.exploredFrom;
             SetAsPath(previous);
+            previous = previous.exploredFrom;   
         }
 
         SetAsPath(startWaypoint);
