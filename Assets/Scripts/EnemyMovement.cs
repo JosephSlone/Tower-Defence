@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour {
 
+    [SerializeField] float speed = 10f;
+
     public List<Waypoint> path;
 
-    Waypoint wayPoint;
-    float speed = 10f;
+    Enemy enemyObject;
+    Waypoint wayPoint;    
     int wayPointPosition = 0;
 
 	// Use this for initialization
 	void Start ()
     {
+        enemyObject = FindObjectOfType<Enemy>();
         Pathfinder pathFinder = FindObjectOfType<Pathfinder>();
         path = pathFinder.GetPath();
         wayPoint = path[wayPointPosition];
@@ -58,9 +61,10 @@ public class EnemyMovement : MonoBehaviour {
 
         if (distanceFromEnd < 1f)
         {
-            Destroy(gameObject, 0.25f);
+            if (enemyObject != null)
+            {
+                enemyObject.Detonate();
+            }
         }
-    }
-
- 
+    } 
 }

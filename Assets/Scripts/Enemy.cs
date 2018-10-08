@@ -9,16 +9,18 @@ public class Enemy : MonoBehaviour {
     [SerializeField] float MaxHits = 20f;
     [SerializeField] GameObject hitExplosion;
     [SerializeField] GameObject deathExplosion;
+    [SerializeField] GameObject detonateFX;
 
     [SerializeField] Image healthBar;
 
     float currentHits;
     AudioSource audioSource;
-
+    
 	// Use this for initialization
 	void Start () {
         currentHits = MaxHits;
         audioSource = GetComponent<AudioSource>();
+
     }
 
     private void Update()
@@ -56,13 +58,23 @@ public class Enemy : MonoBehaviour {
 
     }
 
-    void DestroyMySelf()
+    public void DestroyMySelf()
     {
         deathExplosion.SetActive(true);
         if(!audioSource.isPlaying)
         {
             audioSource.Play();
         }        
+        StartCoroutine(WaitForDeath());
+    }
+
+    public void Detonate()
+    {
+        detonateFX.SetActive(true);
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
         StartCoroutine(WaitForDeath());
     }
 
