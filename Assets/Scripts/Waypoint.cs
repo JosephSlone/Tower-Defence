@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour {
 
-    // [SerializeField] Color exploredColor;
-
-    [SerializeField] Tower towerPrefab;
-
     public bool isExplored = false;
     public Waypoint exploredFrom;
     public bool isPlaceable = true;
 
     const int gridSize = 10;
     Vector2Int gridPos;
+
+    TowerFactory towerFactory;
+
+    private void Start()
+    {
+        towerFactory = FindObjectOfType<TowerFactory>();
+    }
+
+    public void setIsPlacable()
+    {
+        isPlaceable = true;
+    }
+
+    public void clearIsPlacable()
+    {
+        isPlaceable = false;
+    }
 
     public int GetGridSize()
     {
@@ -37,8 +50,8 @@ public class Waypoint : MonoBehaviour {
                 Vector3 spawnPosition = gameObject.transform.position;
                 spawnPosition.y = 10f;
 
-                var newEnemy = Instantiate(towerPrefab, spawnPosition, Quaternion.identity);
-                isPlaceable = false;
+                towerFactory.InstantiateTower(spawnPosition, this);
+              
             }
 
         }

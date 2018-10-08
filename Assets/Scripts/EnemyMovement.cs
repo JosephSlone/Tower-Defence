@@ -16,40 +16,12 @@ public class EnemyMovement : MonoBehaviour {
         Pathfinder pathFinder = FindObjectOfType<Pathfinder>();
         path = pathFinder.GetPath();
         wayPoint = path[wayPointPosition];
-
-        //StartCoroutine(FollowPath(path));
-
-    }
-
-    IEnumerator FollowPath(List<Waypoint> path)
-    {
-        foreach (Waypoint waypoint in path)
-        {
-
-            transform.position = new Vector3(
-                waypoint.transform.position.x,
-                12f,
-                waypoint.transform.position.z);
-
-            // transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(1f);
-        }
     }
 
     private void Update()
     {
         moveSmoothly();
-        Vector3 enemy = transform.position;
-        Vector3 end = path[path.Count - 1].transform.position;
-        enemy.y = 0;
-        end.y = 0;
-
-        float distanceFromEnd = Vector3.Distance(end, enemy);
-
-        if (distanceFromEnd < 1f ) {
-            Destroy(gameObject, 0.25f);
-        }
-
+        DestroyIfAtEnd();
     }
 
     private void moveSmoothly()
@@ -58,7 +30,7 @@ public class EnemyMovement : MonoBehaviour {
 
         Vector3 target = new Vector3(
                 wayPoint.transform.position.x,
-                12f,
+                12f,  // Height of enemy !Important!
                 wayPoint.transform.position.z);
 
         transform.position = Vector3.MoveTowards(transform.position, target, step);
@@ -74,4 +46,21 @@ public class EnemyMovement : MonoBehaviour {
             }
         }
     }
+
+    private void DestroyIfAtEnd()
+    {
+        Vector3 enemy = transform.position;
+        Vector3 end = path[path.Count - 1].transform.position;
+        enemy.y = 0;
+        end.y = 0;
+
+        float distanceFromEnd = Vector3.Distance(end, enemy);
+
+        if (distanceFromEnd < 1f)
+        {
+            Destroy(gameObject, 0.25f);
+        }
+    }
+
+ 
 }
